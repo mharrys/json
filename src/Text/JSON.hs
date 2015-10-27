@@ -1,17 +1,17 @@
 -- |
--- Module       : JSON
+-- Module       : Text.JSON
 -- Description  : JSON library
 -- Copyright    : (c) Mattias Harrysson 2015
 -- License      : LGPL
 -- Stability    : experimental
 -- Portability  : portable
 --
-module JSON where
+module Text.JSON where
 
-import Control.Applicative ((<|>), (<*), (*>), (<*>), (<$>), (<$), many)
+import Control.Applicative ((<|>), many)
 import Control.Monad (void)
 import Numeric (readHex)
-import Text.Parsec (parse, ParseError, try, string, sepBy, count)
+import Text.Parsec (ParseError, parse, try, string, sepBy, count)
 import Text.Parsec.Char (char, digit, hexDigit, oneOf, noneOf)
 import Text.Parsec.Combinator (eof, many1, option)
 import Text.Parsec.String (Parser)
