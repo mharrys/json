@@ -14,7 +14,7 @@ import Numeric (readHex)
 import Text.Parsec (ParseError, parse, try, string, sepBy, count)
 import Text.Parsec.Char (char, digit, hexDigit, oneOf, noneOf)
 import Text.Parsec.Combinator (eof, many1, option)
-import Text.Parsec.String (Parser)
+import Text.Parsec.String (Parser, parseFromFile)
 
 data JValue = JObject [(JValue, JValue)]
             | JArray [JValue]
@@ -23,6 +23,10 @@ data JValue = JObject [(JValue, JValue)]
             | JBool Bool
             | JNull
             deriving (Eq, Show)
+
+parseFile :: String -> IO (Either ParseError JValue)
+parseFile = do
+    parseFromFile valueE
 
 parseEof :: Parser a -> String -> Either ParseError a
 parseEof p = parse (p <* eof) ""
