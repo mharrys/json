@@ -40,12 +40,12 @@ lexeme p = p <* ws
 -- Expression
 
 valueE :: Parser JValue
-valueE = try objectE
+valueE = ws *> (lexeme $ try objectE
          <|> arrayE
          <|> stringT
          <|> numberT
          <|> boolT
-         <|> nullT
+         <|> nullT)
 
 objectE :: Parser JValue
 objectE = do
@@ -63,10 +63,10 @@ arrayE = do
 
 memberE :: Parser (JValue, JValue)
 memberE = do
-    name <- stringT
+    name <- lexeme $ stringT
     void $ lexeme $ char ':'
     value <- valueE
-    return $ (name, value)
+    return (name, value)
 
 -- Terminal
 
