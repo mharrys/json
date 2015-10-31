@@ -31,9 +31,6 @@ parseFile = do
 parseEof :: Parser a -> String -> Either ParseError a
 parseEof p = parse (p <* eof) ""
 
-parseWs :: Parser a -> String -> Either ParseError a
-parseWs p = parseEof $ ws >> p
-
 lexeme :: Parser a -> Parser a
 lexeme p = p <* ws
 
