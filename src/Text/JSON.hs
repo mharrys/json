@@ -97,7 +97,7 @@ boolT = do
 nullT :: Parser JValue
 nullT = do
     void $ lexeme $ string "null"
-    return $ JNull
+    return JNull
 
 -- Helper
 
