@@ -119,15 +119,15 @@ unicode = do
 
 escape :: Parser Char
 escape = do
-    char '\\'
-    x <- oneOf "\"\\/bfnrt"
-    return $ case x of
+    void $ char '\\'
+    e <- oneOf "\"\\/bfnrt"
+    return $ case e of
        'b' -> '\b'
        'f' -> '\f'
        'n' -> '\n'
        'r' -> '\r'
        't' -> '\t'
-       _   -> x
+       _   -> e
 
 commaSep :: Parser a -> Parser [a]
 commaSep = (`sepBy` comma)
