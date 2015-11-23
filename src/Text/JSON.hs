@@ -106,7 +106,7 @@ ws :: Parser ()
 ws = void $ many $ oneOf " \n\t\r"
 
 character :: Parser Char
-character = try unicode <|> escape <|> noneOf "\"\\"
+character = try unicode <|> noneOf "\"\\" <|> escape
 
 unicode :: Parser Char
 unicode = do
@@ -118,7 +118,16 @@ unicode = do
       where [(hex, _)] = readHex h
 
 escape :: Parser Char
-escape = char '\\' *> oneOf "\"\\/\b\f\n\r\t"
+escape = do
+    char '\\'
+    x <- oneOf "\"\\/bfnrt"
+    return $ case x of
+       'b' -> '\b'
+       'f' -> '\f'
+       'n' -> '\n'
+       'r' -> '\r'
+       't' -> '\t'
+       _   -> x
 
 commaSep :: Parser a -> Parser [a]
 commaSep = (`sepBy` comma)
