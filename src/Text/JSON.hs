@@ -25,8 +25,7 @@ data JValue = JObject [(JValue, JValue)]
             deriving (Eq, Show)
 
 parseFile :: String -> IO (Either ParseError JValue)
-parseFile = do
-    parseFromFile valueE
+parseFile = parseFromFile valueE
 
 parseEof :: Parser a -> String -> Either ParseError a
 parseEof p = parse (p <* eof) ""
