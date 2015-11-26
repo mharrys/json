@@ -2,7 +2,7 @@ module Main where
 
 import Text.JSON
 import System.Environment (getArgs)
-import System.IO (hPutStr, stderr, readFile)
+import System.IO (hPutStr, stderr)
 
 main :: IO ()
 main = do
