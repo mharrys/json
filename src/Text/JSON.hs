@@ -6,26 +6,31 @@
 -- Stability    : experimental
 -- Portability  : portable
 --
-module Text.JSON where
+module Text.JSON
+    ( JValue(..)
+    , fromJSON
+    , fromFile
+    ) where
 
 import Control.Applicative ((<|>), many)
 import Control.Monad (void)
+
 import Numeric (readHex)
+
 import Text.Parsec (ParseError, parse, try, string, sepBy, count)
 import Text.Parsec.Char (char, digit, hexDigit, oneOf, noneOf)
 import Text.Parsec.Combinator (eof, many1, option)
 import Text.Parsec.String (Parser, parseFromFile)
 
-data JValue = JObject [(JValue, JValue)]
-            | JArray [JValue]
-            | JString String
-            | JNumber Double
-            | JBool Bool
-            | JNull
-            deriving (Eq, Show)
+import Text.JSON.Type
 
-parseFile :: String -> IO (Either ParseError JValue)
-parseFile = parseFromFile valueE
+fromJSON :: String -> Either ParseError JValue
+fromJSON = parseEof valueE
+
+fromFile :: String -> IO (Either ParseError JValue)
+fromFile = parseFromFile valueE
+
+-- Parser
 
 parseEof :: Parser a -> String -> Either ParseError a
 parseEof p = parse (p <* eof) ""

@@ -1,6 +1,6 @@
 module Main where
 
-import Text.JSON
+import Text.JSON (fromFile)
 import System.Environment (getArgs)
 import System.IO (hPutStr, stderr)
 
@@ -13,7 +13,7 @@ main = do
 
 parse :: String -> IO ()
 parse path = do
-    result <- parseFile path
+    result <- fromFile path
     case result of
       Left err -> print err
       Right json -> print json

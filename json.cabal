@@ -16,6 +16,7 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Text.JSON
+                     , Text.JSON.Type
   build-depends:       base >= 4.7 && < 5
                      , parsec >= 2.1 && < 4
   default-language:    Haskell2010
