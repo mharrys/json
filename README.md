@@ -20,6 +20,12 @@ To build and install the command-line interface, execute from root directory:
     $ stack install
     $ json filename.json
 
+You can also use ghci, execute from root directory:
+
+    $ stack ghci
+    ghci> fromJSON "{\"foo\": [\"bar\"]}"
+       => Right (JObject [(JString "foo",JArray [JString "bar"])])
+
 The `stack install` command is exactly the same as `stack build` with the only
 difference that stack moves the binary to `~/.local/bin`. So in order to
 execute the command-line interface you must have this directory in your `PATH`.
