@@ -7,9 +7,9 @@ import System.IO (hPutStr, stderr)
 main :: IO ()
 main = do
     args <- getArgs
-    case (null args) of
-      True -> hPutStr stderr "json: expecting path to JSON file\n"
-      False -> parse (head args)
+    if null args
+        then hPutStr stderr "json: expecting path to JSON file\n"
+        else parse (head args)
 
 parse :: String -> IO ()
 parse path = do
