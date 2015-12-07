@@ -35,9 +35,6 @@ fromFile = parseFromFile valueE
 parseEof :: Parser a -> String -> Either ParseError a
 parseEof p = parse (p <* eof) ""
 
-lexeme :: Parser a -> Parser a
-lexeme p = p <* ws
-
 -- Expression
 
 valueE :: Parser JValue
@@ -105,6 +102,9 @@ nullT = do
     return JNull
 
 -- Helper
+
+lexeme :: Parser a -> Parser a
+lexeme p = p <* ws
 
 ws :: Parser ()
 ws = void $ many $ oneOf " \n\t\r"
